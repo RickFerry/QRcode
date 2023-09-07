@@ -1,0 +1,107 @@
+{
+	"info": {
+		"_postman_id": "03edca16-1fcc-436d-8094-50f87db21ad3",
+		"name": "QRcode",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25258351"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get user by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQwOTg4MjIsInVzZXJfbmFtZSI6ImFtYXpvbkBhbWF6b24uY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9PUEVSQVRPUiJdLCJqdGkiOiJjZmQxOTNkMC04OWMyLTQ5MzktOTc1OS1iZTcxOGJkOWExNjYiLCJjbGllbnRfaWQiOiJteWFwcG5hbWUxMjMiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.li-FgnLhfSy4tudOOReFvbRW6w-GnwWmkJUq6DDbD8k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8765/ms-user/users",
+							"host": [
+								"localhost"
+							],
+							"port": "8765",
+							"path": [
+								"ms-user",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Catalog",
+			"item": []
+		},
+		{
+			"name": "QRcode",
+			"item": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "myappsecret123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "myappname123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "amazon@amazon.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8765/ms-oauth/oauth/token",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"ms-oauth",
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
