@@ -6,29 +6,30 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Configuration
 @EnableWebSecurity
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
-    private final JwtTokenStore store;
+    private final UserDetailsService service;
+    private  final BCryptPasswordEncoder encoder;
 
-    public ResourceServerConfig(JwtTokenStore store) {
-        this.store = store;
+    public ResourceServerConfig(UserDetailsService service, BCryptPasswordEncoder encoder) {
+        this.service = service;
+        this.encoder = encoder;
     }
 
     @Autowired
     public void configure(AuthenticationManagerBuilder builder) throws Exception {
         builder
-                .inMemoryAuthentication()
-                .withUser("user")
-                .password("{noop}password")
-                .roles("USER");
+                .userDetailsService(service)
+                .passwordEncoder(encoder);
     }
 
     @Override

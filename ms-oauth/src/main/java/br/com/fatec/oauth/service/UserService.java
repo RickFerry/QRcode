@@ -17,15 +17,11 @@ public class UserService implements UserDetailsService {
     }
 
     public User findByEmail(String email) throws RuntimeException {
-        User user = userFeignClient.findByEmail(email).getBody();
-        if (user == null) throw new RuntimeException("Email not found");
-        return user;
+        return userFeignClient.findByEmail(email).orElseThrow(() -> new RuntimeException("Email not found"));
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userFeignClient.findByEmail(email).getBody();
-        if (user == null) throw new UsernameNotFoundException("Email not found");
-        return user;
+        return userFeignClient.findByEmail(email).orElseThrow(() -> new RuntimeException("Email not found"));
     }
 }

@@ -1,9 +1,6 @@
 package br.com.fatec.oauth.token;
 
 import org.apache.catalina.util.ParameterMap;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.http.Cookie;
@@ -12,8 +9,8 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.IOException;
 import java.util.Map;
 
-@Component
-@Order(Ordered.HIGHEST_PRECEDENCE)
+//@Component
+//@Order(Ordered.HIGHEST_PRECEDENCE)
 public class RefreshTokenCookiePreProcessorFilter implements Filter {
 
     @Override
@@ -21,8 +18,8 @@ public class RefreshTokenCookiePreProcessorFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
 
         if ("/oauth/token".equalsIgnoreCase(request.getRequestURI())
-                && "refresh_token".equals(req.getParameter("grant_type"))
-                && request.getCookies() != null) {
+                        && "refresh_token".equals(req.getParameter("grant_type"))
+                        && request.getCookies() != null) {
             for (Cookie cookie : request.getCookies()) {
                 if (cookie.getName().equals("refreshToken")) {
                     String cookieValue = cookie.getValue();
@@ -32,7 +29,6 @@ public class RefreshTokenCookiePreProcessorFilter implements Filter {
         }
         chain.doFilter(request, resp);
     }
-
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         Filter.super.init(filterConfig);
