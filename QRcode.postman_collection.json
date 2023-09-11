@@ -17,7 +17,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQwOTg4MjIsInVzZXJfbmFtZSI6ImFtYXpvbkBhbWF6b24uY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9PUEVSQVRPUiJdLCJqdGkiOiJjZmQxOTNkMC04OWMyLTQ5MzktOTc1OS1iZTcxOGJkOWExNjYiLCJjbGllbnRfaWQiOiJteWFwcG5hbWUxMjMiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.li-FgnLhfSy4tudOOReFvbRW6w-GnwWmkJUq6DDbD8k",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQzMjYxMjQsInVzZXJfbmFtZSI6ImFtYXpvbkBhbWF6b24uY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9PUEVSQVRPUiJdLCJqdGkiOiIzNDY3NjkyZS1lOWVlLTRhY2EtODc0NS03ZmE0MzAxOTdiMTAiLCJjbGllbnRfaWQiOiJteWFwcG5hbWUxMjMiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.bm_Vlu6FJLQUNgQo4nyP7Djz8j0iaJStLnf-V9QdCkw",
 									"type": "string"
 								}
 							]
@@ -25,14 +25,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8765/ms-user/users",
+							"raw": "localhost:8765/ms-user/users/2",
 							"host": [
 								"localhost"
 							],
 							"port": "8765",
 							"path": [
 								"ms-user",
-								"users"
+								"users",
+								"2"
 							]
 						}
 					},
@@ -84,6 +85,51 @@
 						{
 							"key": "grant_type",
 							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8765/ms-oauth/oauth/token",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"ms-oauth",
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "myappsecret123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "myappname123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "refresh_token",
 							"type": "text"
 						}
 					]

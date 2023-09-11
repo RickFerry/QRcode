@@ -14,43 +14,43 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Objects;
 
 //@ControllerAdvice
+//@SuppressWarnings("deprecation")
 public class RefreshTokenPostProcessor implements ResponseBodyAdvice<OAuth2AccessToken> {
 
     @Override
-    public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
-        return Objects.equals(Objects.requireNonNull(methodParameter.getMethod()).getName(), "postAccessToken");
+    public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
+        return returnType.getMethod().getName().equals("postAccessToken");
     }
 
     @Override
-    public OAuth2AccessToken beforeBodyWrite(OAuth2AccessToken oAuth2AccessToken, MethodParameter methodParameter,
-                                             MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass,
-                                             ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
+    public OAuth2AccessToken beforeBodyWrite(OAuth2AccessToken body, MethodParameter returnType,
+                                             MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType,
+                                             ServerHttpRequest request, ServerHttpResponse response) {
 
-        HttpServletRequest request = ((ServletServerHttpRequest) serverHttpRequest).getServletRequest();
-        HttpServletResponse response = ((ServletServerHttpResponse) serverHttpResponse).getServletResponse();
-        DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) oAuth2AccessToken;
-        String refreshToken = oAuth2AccessToken != null ? oAuth2AccessToken.getRefreshToken().getValue() : null;
+        HttpServletRequest req = ((ServletServerHttpRequest) request).getServletRequest();
+        HttpServletResponse resp = ((ServletServerHttpResponse) response).getServletResponse();
 
-        setInCookie(refreshToken, request, response);
-        if (token != null) {
-            removeRefreshTokenFromBody(token);
-        }
-        return oAuth2AccessToken;
+        DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) body;
+
+        String refreshToken = body.getRefreshToken().getValue();
+        adicionarRefreshTokenNoCookie(refreshToken, req, resp);
+        removerRefreshTokenDoBody(token);
+
+        return body;
     }
 
-    private void removeRefreshTokenFromBody(DefaultOAuth2AccessToken token) {
+    private void removerRefreshTokenDoBody(DefaultOAuth2AccessToken token) {
         token.setRefreshToken(null);
     }
 
-    private void setInCookie(String refreshToken, HttpServletRequest request, HttpServletResponse response) {
+    private void adicionarRefreshTokenNoCookie(String refreshToken, HttpServletRequest req, HttpServletResponse resp) {
         Cookie refreshTokenCookie = new Cookie("refreshToken", refreshToken);
         refreshTokenCookie.setHttpOnly(true);
-        refreshTokenCookie.setSecure(false); // TODO: Mudar para true em servidores('Produção')
-        refreshTokenCookie.setPath(request.getContextPath() + "/oauth/token");
+        refreshTokenCookie.setSecure(false); // TODO: Mudar para true em producao
+        refreshTokenCookie.setPath(req.getContextPath() + "/oauth/token");
         refreshTokenCookie.setMaxAge(2592000);
-        response.addCookie(refreshTokenCookie);
+        resp.addCookie(refreshTokenCookie);
     }
 }
