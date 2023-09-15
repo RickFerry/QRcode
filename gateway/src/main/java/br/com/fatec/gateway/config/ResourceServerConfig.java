@@ -42,7 +42,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/ms-oauth/oauth/token").permitAll()
+                .antMatchers(HttpMethod.POST,"/ms-oauth/oauth/token").permitAll()
 //                .antMatchers("").hasAnyRole("")
 //                .antMatchers("").hasRole("")
                 .anyRequest().authenticated()
