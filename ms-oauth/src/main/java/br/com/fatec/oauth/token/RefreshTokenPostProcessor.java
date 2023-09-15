@@ -25,7 +25,7 @@ public class RefreshTokenPostProcessor implements ResponseBodyAdvice<OAuth2Acces
     }
 
     @Override
-    public OAuth2AccessToken beforeBodyWrite(OAuth2AccessToken body, MethodParameter returnType,
+    public OAuth2AccessToken beforeBodyWrite(final OAuth2AccessToken body, MethodParameter returnType,
                                              MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType,
                                              ServerHttpRequest request, ServerHttpResponse response) {
 
