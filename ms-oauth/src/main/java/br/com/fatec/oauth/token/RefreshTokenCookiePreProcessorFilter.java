@@ -31,9 +31,7 @@ public class RefreshTokenCookiePreProcessorFilter implements Filter {
 
             req = new MyServletRequestWrapper(req, refreshToken);
         }
-
         chain.doFilter(req, response);
-
     }
 
     static class MyServletRequestWrapper extends HttpServletRequestWrapper {
