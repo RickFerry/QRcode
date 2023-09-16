@@ -17,7 +17,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQwOTg4MjIsInVzZXJfbmFtZSI6ImFtYXpvbkBhbWF6b24uY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9PUEVSQVRPUiJdLCJqdGkiOiJjZmQxOTNkMC04OWMyLTQ5MzktOTc1OS1iZTcxOGJkOWExNjYiLCJjbGllbnRfaWQiOiJteWFwcG5hbWUxMjMiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.li-FgnLhfSy4tudOOReFvbRW6w-GnwWmkJUq6DDbD8k",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTQ4MzU0OTAsInVzZXJfbmFtZSI6ImFtYXpvbkBhbWF6b24uY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9PUEVSQVRPUiJdLCJqdGkiOiI5NzQxYTRkZi04OTY2LTQzZGYtOTJhZC1lMGY5YTAxYTE4MGYiLCJjbGllbnRfaWQiOiJteWFwcG5hbWUxMjMiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.l-mI9WmWITIS8PY_vGyvbFqYo8Wg3J2APXdeGYKSZlY",
 									"type": "string"
 								}
 							]
@@ -25,14 +25,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8765/ms-user/users",
+							"raw": "localhost:8765/ms-user/users/2",
 							"host": [
 								"localhost"
 							],
 							"port": "8765",
 							"path": [
 								"ms-user",
-								"users"
+								"users",
+								"2"
 							]
 						}
 					},
@@ -84,6 +85,56 @@
 						{
 							"key": "grant_type",
 							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8765/ms-oauth/oauth/token",
+					"host": [
+						"localhost"
+					],
+					"port": "8765",
+					"path": [
+						"ms-oauth",
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "myappsecret123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "myappname123",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "refresh_token",
+							"type": "text"
+						},
+						{
+							"key": "refresh_token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhbWF6b25AYW1hem9uLmNvbSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJhdGkiOiI5Zjg2NjU5Ny0zNzM5LTQ3NzYtOWQ4OC0yODE2OWUzMjI0NDgiLCJleHAiOjE2OTQ5MjE4MzMsImF1dGhvcml0aWVzIjpbIlJPTEVfT1BFUkFUT1IiXSwianRpIjoiNzA1ZDIxMGItNjRhYS00YmQ5LWI1OTMtYjY4NmRiYjI1ZDc3IiwiY2xpZW50X2lkIjoibXlhcHBuYW1lMTIzIn0.qPt6b6ZCEzy8LELT5YSvBsogeCMFiPNISK8r1TJuIM0",
 							"type": "text"
 						}
 					]
