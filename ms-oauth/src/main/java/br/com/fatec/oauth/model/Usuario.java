@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements UserDetails {
+public class Usuario implements UserDetails {
 
     private Long id;
     private String name;

@@ -13,7 +13,7 @@ import java.util.Set;
 @Entity(name = "User")
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
