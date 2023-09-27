@@ -1,7 +1,9 @@
 package br.com.fatec.oauth.service;
 
 import br.com.fatec.oauth.feignclients.UserFeignClient;
-import br.com.fatec.oauth.model.User;
+import br.com.fatec.oauth.model.Usuario;
+import br.com.fatec.oauth.model.UsuarioSistema;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,12 +18,13 @@ public class UserService implements UserDetailsService {
         this.userFeignClient = userFeignClient;
     }
 
-    public User findByEmail(String email) throws RuntimeException {
+    public Usuario findByEmail(String email) throws RuntimeException {
         return userFeignClient.findByEmail(email).orElseThrow(() -> new RuntimeException("Email not found"));
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userFeignClient.findByEmail(email).orElseThrow(() -> new RuntimeException("Email not found"));
+        Usuario usuario = userFeignClient.findByEmail(email).orElseThrow(() -> new RuntimeException("Email not found"));
+        return new UsuarioSistema(usuario, usuario.getAuthorities());
     }
 }

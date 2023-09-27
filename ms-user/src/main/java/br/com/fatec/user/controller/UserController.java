@@ -1,6 +1,6 @@
 package br.com.fatec.user.controller;
 
-import br.com.fatec.user.model.User;
+import br.com.fatec.user.model.Usuario;
 import br.com.fatec.user.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,12 +18,12 @@ public class UserController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN') and #oauth2.hasScope('read')")
-    public ResponseEntity<User> findById(@PathVariable Long id) {
+    public ResponseEntity<Usuario> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findById(id));
     }
 
     @GetMapping("/search")
-    public ResponseEntity<User> findByEmail(@RequestParam String email) {
+    public ResponseEntity<Usuario> findByEmail(@RequestParam String email) {
         return ResponseEntity.ok(service.findByEmail(email));
     }
 }
