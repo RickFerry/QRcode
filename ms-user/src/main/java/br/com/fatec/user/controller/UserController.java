@@ -2,11 +2,10 @@ package br.com.fatec.user.controller;
 
 import br.com.fatec.user.model.User;
 import br.com.fatec.user.service.UserService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-@Slf4j
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -18,6 +17,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') and #oauth2.hasScope('read')")
     public ResponseEntity<User> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findById(id));
     }
