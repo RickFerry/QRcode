@@ -33,6 +33,8 @@ public class CorsFilter implements Filter {
             resp.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS");
             resp.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept");
             resp.setHeader("Access-Control-Max-Age", "3600");
+
+            resp.setStatus(HttpServletResponse.SC_OK);
         } else {
             chain.doFilter(request, response);
         }
