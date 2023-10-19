@@ -1,10 +1,14 @@
 package br.com.fatec.user.controller;
 
 import br.com.fatec.user.model.Usuario;
+import br.com.fatec.user.model.dto.UsuarioDto;
 import br.com.fatec.user.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/users")
@@ -25,5 +29,13 @@ public class UserController {
     @GetMapping("/search")
     public ResponseEntity<Usuario> findByEmail(@RequestParam String email) {
         return ResponseEntity.ok(service.findByEmail(email));
+    }
+
+    @PostMapping
+    public ResponseEntity<UsuarioDto> create(@RequestBody UsuarioDto dto,
+                                             @NotNull UriComponentsBuilder uriComponentsBuilder) {
+        return ResponseEntity
+                .created(uriComponentsBuilder.path("/users/{id}").buildAndExpand(service.create(dto).getId())
+                        .toUri()).body(service.create(dto));
     }
 }

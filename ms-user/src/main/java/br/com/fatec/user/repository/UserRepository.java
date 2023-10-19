@@ -3,6 +3,8 @@ package br.com.fatec.user.repository;
 import br.com.fatec.user.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 public interface UserRepository extends JpaRepository<Usuario, Long> {
-    Usuario findByEmail(String email);
+    Optional<Usuario> findByEmail(String email);
 }

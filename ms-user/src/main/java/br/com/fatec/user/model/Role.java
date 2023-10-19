@@ -1,20 +1,21 @@
 package br.com.fatec.user.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 
-@Data
-@Table(name = "roles")
-@Entity(name = "Role")
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "roles")
+@Entity(name = "Role")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String roleName;
+    Long id;
+
+    String roleName;
 }
