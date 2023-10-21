@@ -1,10 +1,10 @@
 package br.com.fatec.user.model;
 
-import br.com.fatec.user.model.dto.UsuarioDto;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,18 +16,18 @@ import java.util.Set;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Usuario {
 
-    @Id
-    @Setter
+    @Id @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Setter
+    @Setter @NotNull
     String name;
 
     @Setter
+    @Column(unique = true)
     String email;
 
-    @Setter
+    @Setter @NotNull
     String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -35,11 +35,4 @@ public class Usuario {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     Set<Role> roles = new HashSet<>();
-
-    public Usuario(UsuarioDto dto) {
-        this.name = dto.getName();
-        this.email = dto.getEmail();
-        this.password = dto.getPassword();
-        this.roles.addAll(dto.getRoles());
-    }
 }

@@ -7,6 +7,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.springframework.beans.BeanUtils.copyProperties;
+
 @Service
 public class UserService {
     private final BCryptPasswordEncoder encoder;
@@ -30,6 +32,9 @@ public class UserService {
     @Transactional
     public UsuarioDto create(UsuarioDto dto) {
         dto.setPassword(encoder.encode(dto.getPassword()));
-        return new UsuarioDto(repository.save(new Usuario(dto)));
+        Usuario usuario = new Usuario();
+        copyProperties(dto, usuario);
+        copyProperties(repository.save(usuario), dto);
+        return dto;
     }
 }
