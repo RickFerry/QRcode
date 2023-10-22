@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -26,6 +27,11 @@ public class UserController {
         return ResponseEntity.ok(service.findById(id));
     }
 
+    @GetMapping
+    public ResponseEntity<List<UsuarioDto>> findAll() {
+        return ResponseEntity.ok(service.findAll());
+    }
+
     @GetMapping("/search")
     public ResponseEntity<Usuario> findByEmail(@RequestParam String email) {
         return ResponseEntity.ok(service.findByEmail(email));
@@ -34,8 +40,12 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UsuarioDto> create(@RequestBody UsuarioDto dto,
                                              @NotNull UriComponentsBuilder uriComponentsBuilder) {
-        return ResponseEntity
-                .created(uriComponentsBuilder.path("/users/{id}").buildAndExpand(service.create(dto).getId())
-                        .toUri()).body(service.create(dto));
+        try {
+            return ResponseEntity
+                    .created(uriComponentsBuilder.path("/users/{id}").buildAndExpand(service.create(dto).getId())
+                            .toUri()).body(service.create(dto));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }

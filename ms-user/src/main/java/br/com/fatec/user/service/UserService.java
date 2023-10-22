@@ -3,11 +3,13 @@ package br.com.fatec.user.service;
 import br.com.fatec.user.model.Usuario;
 import br.com.fatec.user.model.dto.UsuarioDto;
 import br.com.fatec.user.repository.UserRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.springframework.beans.BeanUtils.copyProperties;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -25,6 +27,11 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
+    public List<UsuarioDto> findAll() {
+        return repository.findAll().stream().map(UsuarioDto::new).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
     public Usuario findByEmail(String email) {
         return repository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
     }
@@ -32,9 +39,7 @@ public class UserService {
     @Transactional
     public UsuarioDto create(UsuarioDto dto) {
         dto.setPassword(encoder.encode(dto.getPassword()));
-        Usuario usuario = new Usuario();
-        copyProperties(dto, usuario);
-        copyProperties(repository.save(usuario), dto);
+        BeanUtils.copyProperties(repository.save(new Usuario(dto)), dto);
         return dto;
     }
 }

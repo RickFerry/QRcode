@@ -1,5 +1,6 @@
 package br.com.fatec.user.model;
 
+import br.com.fatec.user.model.dto.UsuarioDto;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -35,4 +36,12 @@ public class Usuario {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     Set<Role> roles = new HashSet<>();
+
+    public Usuario(UsuarioDto dto) {
+        this.id = dto.getId();
+        this.name = dto.getName();
+        this.email = dto.getEmail();
+        this.password = dto.getPassword();
+        roles.addAll(dto.getRoles());
+    }
 }
