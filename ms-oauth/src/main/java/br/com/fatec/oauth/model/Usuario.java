@@ -1,8 +1,6 @@
 package br.com.fatec.oauth.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,20 +10,25 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Data
+@Builder @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Usuario implements UserDetails {
 
+    @Setter
     private Long id;
+    @Setter
     private String name;
+    @Setter
     private String email;
+    @Setter
     private String password;
+
     private Set<Role> roles = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream().map(x -> new SimpleGrantedAuthority(x.getRoleName())).collect(Collectors.toList());
+        return roles.stream().map(x -> new SimpleGrantedAuthority(x.getRoleName())).collect(Collectors.toSet());
     }
 
     @Override

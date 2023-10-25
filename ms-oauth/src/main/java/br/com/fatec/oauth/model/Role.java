@@ -1,12 +1,11 @@
 package br.com.fatec.oauth.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder @Getter @Setter
 public class Role {
 
     private Long id;

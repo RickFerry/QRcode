@@ -62,7 +62,7 @@ class UserServiceTest {
     @Test
     void whenFindByEmailThenReturnUser() {
         when(userRepository.findByEmail(any())).thenReturn(Optional.of(usuario));
-        Usuario resp = userRepository.findByEmail(any()).get();
+        Usuario resp = userService.findByEmail(any());
         assertEquals(usuario.getEmail(), resp.getEmail());
     }
 
