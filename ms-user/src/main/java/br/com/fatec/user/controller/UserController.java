@@ -8,7 +8,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -38,8 +37,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UsuarioDto> create(@RequestBody UsuarioDto dto,
-                                             @NotNull UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<UsuarioDto> create(@RequestBody UsuarioDto dto, UriComponentsBuilder uriComponentsBuilder) {
         try {
             return ResponseEntity
                     .created(uriComponentsBuilder.path("/users/{id}").buildAndExpand(service.create(dto).getId())

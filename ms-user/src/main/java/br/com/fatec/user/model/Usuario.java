@@ -25,6 +25,7 @@ public class Usuario {
     String name;
 
     @Setter
+    @Column(unique = true)
     String email;
 
     @Setter @NotNull
