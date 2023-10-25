@@ -37,7 +37,8 @@ public class UserService {
 
     @Transactional
     public UsuarioDto create(UsuarioDto dto) {
-        dto.setPassword(encoder.encode(dto.getPassword()));
-        return new UsuarioDto(repository.save(new Usuario(dto)));
+        Usuario user = new Usuario(dto);
+        user.setPassword(encoder.encode(dto.getPassword()));
+        return new UsuarioDto(repository.save(user));
     }
 }

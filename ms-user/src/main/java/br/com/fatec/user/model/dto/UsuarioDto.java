@@ -15,16 +15,9 @@ import java.util.Set;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UsuarioDto {
 
-    @Setter
     Long id;
-
-    @Setter
     String name;
-
-    @Setter
     String email;
-
-    @Setter
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     String password;
 
