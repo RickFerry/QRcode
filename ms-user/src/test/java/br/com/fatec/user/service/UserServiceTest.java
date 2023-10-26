@@ -38,8 +38,8 @@ class UserServiceTest {
     @Test
     void whenFindByIdThenReturnUser() {
         when(userRepository.findById(any())).thenReturn(Optional.of(usuario));
-        Usuario resp = userService.findById(any());
-        assertEquals(Usuario.class, resp.getClass());
+        UsuarioDto resp = userService.findById(any());
+        assertEquals(UsuarioDto.class, resp.getClass());
     }
 
     @Test
@@ -62,7 +62,7 @@ class UserServiceTest {
     @Test
     void whenFindByEmailThenReturnUser() {
         when(userRepository.findByEmail(any())).thenReturn(Optional.of(usuario));
-        Usuario resp = userService.findByEmail(any());
+        UsuarioDto resp = userService.findByEmail(any());
         assertEquals(usuario.getEmail(), resp.getEmail());
     }
 

@@ -1,6 +1,5 @@
 package br.com.fatec.user.controller;
 
-import br.com.fatec.user.model.Usuario;
 import br.com.fatec.user.model.dto.UsuarioDto;
 import br.com.fatec.user.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +21,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN') and #oauth2.hasScope('read')")
-    public ResponseEntity<Usuario> findById(@PathVariable Long id) {
+    public ResponseEntity<UsuarioDto> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findById(id));
     }
 
@@ -32,7 +31,7 @@ public class UserController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Usuario> findByEmail(@RequestParam String email) {
+    public ResponseEntity<UsuarioDto> findByEmail(@RequestParam String email) {
         return ResponseEntity.ok(service.findByEmail(email));
     }
 

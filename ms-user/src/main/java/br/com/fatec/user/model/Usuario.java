@@ -1,8 +1,10 @@
 package br.com.fatec.user.model;
 
 import br.com.fatec.user.model.dto.UsuarioDto;
+import br.com.fatec.user.repository.RoleRepository;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -37,11 +39,15 @@ public class Usuario {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     Set<Role> roles = new HashSet<>();
 
-    public Usuario(UsuarioDto dto) {
-        this.id = dto.getId();
-        this.name = dto.getName();
-        this.email = dto.getEmail();
-        this.password = dto.getPassword();
-        roles.addAll(dto.getRoles());
+    public static Usuario toEntity(UsuarioDto dto, RoleRepository repository, BCryptPasswordEncoder encoder) {
+        Usuario user = Usuario.builder()
+                .id(dto.getId())
+                .name(dto.getName())
+                .email(dto.getEmail())
+                .password(encoder.encode(dto.getPassword()))
+                .roles(new HashSet<>())
+                .build();
+        dto.getRoles().forEach(r -> user.getRoles().add(repository.getOne(r.getId())));
+        return user;
     }
 }

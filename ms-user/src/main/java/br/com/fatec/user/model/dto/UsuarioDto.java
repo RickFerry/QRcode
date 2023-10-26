@@ -18,16 +18,21 @@ public class UsuarioDto {
     Long id;
     String name;
     String email;
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     String password;
 
     Set<Role> roles = new HashSet<>();
 
-    public UsuarioDto(Usuario usuario) {
-        this.id = usuario.getId();
-        this.name = usuario.getName();
-        this.email = usuario.getEmail();
-        this.password = usuario.getPassword();
-        roles.addAll(usuario.getRoles());
+    public static UsuarioDto toDto(Usuario usuario) {
+        UsuarioDto user = UsuarioDto.builder()
+                .id(usuario.getId())
+                .name(usuario.getName())
+                .email(usuario.getEmail())
+                .password(usuario.getPassword())
+                .roles(new HashSet<>())
+                .build();
+        usuario.getRoles().forEach(r -> user.getRoles().add(r));
+        return user;
     }
 }
