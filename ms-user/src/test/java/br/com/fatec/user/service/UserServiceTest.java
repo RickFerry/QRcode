@@ -1,6 +1,6 @@
 package br.com.fatec.user.service;
 
-import br.com.fatec.user.model.Usuario;
+import br.com.fatec.user.model.User;
 import br.com.fatec.user.model.dto.UsuarioDto;
 import br.com.fatec.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +26,7 @@ class UserServiceTest {
     @Mock
     private UserRepository userRepository;
 
-    private Usuario usuario;
+    private User usuario;
     private UsuarioDto dto;
 
     @BeforeEach
@@ -84,7 +84,7 @@ class UserServiceTest {
     }
 
     private void StartObjects() {
-        usuario = Usuario.builder()
+        usuario = User.builder()
                 .id(1L)
                 .name("Fulano")
                 .email("fulano@fulano.com")

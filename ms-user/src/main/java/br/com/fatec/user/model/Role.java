@@ -5,11 +5,11 @@ import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 
+@Entity
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "roles")
-@Entity(name = "Role")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Role {
 

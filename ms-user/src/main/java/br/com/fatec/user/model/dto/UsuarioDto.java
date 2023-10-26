@@ -1,7 +1,7 @@
 package br.com.fatec.user.model.dto;
 
 import br.com.fatec.user.model.Role;
-import br.com.fatec.user.model.Usuario;
+import br.com.fatec.user.model.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -24,7 +24,7 @@ public class UsuarioDto {
 
     Set<Role> roles = new HashSet<>();
 
-    public static UsuarioDto toDto(Usuario usuario) {
+    public static UsuarioDto toDto(User usuario) {
         UsuarioDto user = UsuarioDto.builder()
                 .id(usuario.getId())
                 .name(usuario.getName())

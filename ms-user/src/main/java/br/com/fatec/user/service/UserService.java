@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static br.com.fatec.user.model.Usuario.toEntity;
+import static br.com.fatec.user.model.User.toEntity;
 import static br.com.fatec.user.model.dto.UsuarioDto.toDto;
 
 @Service

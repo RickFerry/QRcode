@@ -11,13 +11,13 @@ import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
 @Builder @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users")
-@Entity(name = "User")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Usuario {
+public class User {
 
     @Id @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,8 +39,8 @@ public class Usuario {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     Set<Role> roles = new HashSet<>();
 
-    public static Usuario toEntity(UsuarioDto dto, RoleRepository repository, BCryptPasswordEncoder encoder) {
-        Usuario user = Usuario.builder()
+    public static User toEntity(UsuarioDto dto, RoleRepository repository, BCryptPasswordEncoder encoder) {
+        User user = User.builder()
                 .id(dto.getId())
                 .name(dto.getName())
                 .email(dto.getEmail())
