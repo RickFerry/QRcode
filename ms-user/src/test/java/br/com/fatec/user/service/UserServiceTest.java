@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
+import static java.lang.String.valueOf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -85,7 +86,7 @@ class UserServiceTest {
 
     private void StartObjects() {
         usuario = User.builder()
-                .id(1L)
+                .id(valueOf(1))
                 .name("Fulano")
                 .email("fulano@fulano.com")
                 .password("123")
@@ -93,7 +94,7 @@ class UserServiceTest {
                 .build();
 
         dto = UsuarioDto.builder()
-                .id(1L)
+                .id(valueOf(1))
                 .name("Fulano")
                 .email("fulano@fulano.com")
                 .password("123")
