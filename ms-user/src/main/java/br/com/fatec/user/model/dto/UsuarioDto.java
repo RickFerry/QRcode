@@ -14,8 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UsuarioDto {
-
-    Long id;
+    String id;
     String name;
     String email;
 

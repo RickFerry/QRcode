@@ -21,7 +21,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN') and #oauth2.hasScope('read')")
-    public ResponseEntity<UsuarioDto> findById(@PathVariable Long id) {
+    public ResponseEntity<UsuarioDto> findById(@PathVariable String id) {
         return ResponseEntity.ok(service.findById(id));
     }
 

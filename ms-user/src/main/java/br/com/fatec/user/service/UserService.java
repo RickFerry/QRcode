@@ -26,7 +26,7 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public UsuarioDto findById(Long id) {
+    public UsuarioDto findById(String id) {
         return toDto(
                 repository.findById(id).orElseThrow(() -> new RuntimeException("User not found"))
         );
