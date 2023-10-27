@@ -3,29 +3,30 @@ package br.com.fatec.user.model;
 import br.com.fatec.user.model.dtos.UsuarioDto;
 import br.com.fatec.user.repository.RoleRepository;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
 @Table(name = "users")
 @Entity(name = "User")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Usuario {
 
-    @Id
+    @Id @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-
+    @Setter
     @Column(unique = true)
     private String email;
-
+    @Setter
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)

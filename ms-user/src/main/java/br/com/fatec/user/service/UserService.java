@@ -8,6 +8,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static br.com.fatec.user.model.Usuario.toEntity;
 import static br.com.fatec.user.model.dtos.UsuarioDto.toDto;
 
@@ -25,13 +28,20 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public Usuario findById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+    public UsuarioDto findById(Long id) {
+        return toDto(
+                repository.findById(id).orElseThrow(() -> new RuntimeException("User not found"))
+        );
+    }
+
+    @Transactional(readOnly = true)
+    public List<UsuarioDto> findAll() {
+        return repository.findAll().stream().map(UsuarioDto::toDto).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public Usuario findByEmail(String email) {
-        return repository.findByEmail(email);
+        return repository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
     @Transactional
