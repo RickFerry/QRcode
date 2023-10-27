@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Builder @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Usuario implements UserDetails {
+public class User implements UserDetails {
 
     @Setter
     private Long id;

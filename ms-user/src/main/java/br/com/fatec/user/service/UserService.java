@@ -1,6 +1,7 @@
 package br.com.fatec.user.service;
 
-import br.com.fatec.user.model.dto.UsuarioDto;
+import br.com.fatec.user.model.User;
+import br.com.fatec.user.model.dto.UserDto;
 import br.com.fatec.user.repository.RoleRepository;
 import br.com.fatec.user.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static br.com.fatec.user.model.User.toEntity;
-import static br.com.fatec.user.model.dto.UsuarioDto.toDto;
+import static br.com.fatec.user.model.dto.UserDto.toDto;
 
 @Service
 public class UserService {
@@ -26,26 +27,24 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public UsuarioDto findById(Long id) {
+    public UserDto findById(Long id) {
         return toDto(
                 repository.findById(id).orElseThrow(() -> new RuntimeException("User not found"))
         );
     }
 
     @Transactional(readOnly = true)
-    public List<UsuarioDto> findAll() {
-        return repository.findAll().stream().map(UsuarioDto::toDto).collect(Collectors.toList());
+    public List<UserDto> findAll() {
+        return repository.findAll().stream().map(UserDto::toDto).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public UsuarioDto findByEmail(String email) {
-        return toDto(
-                repository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"))
-        );
+    public User findByEmail(String email) {
+        return repository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
     @Transactional
-    public UsuarioDto create(UsuarioDto dto) {
+    public UserDto create(UserDto dto) {
         return toDto(repository.save(
                 toEntity(dto, roleRepository, encoder)
         ));

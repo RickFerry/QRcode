@@ -1,7 +1,6 @@
 package br.com.fatec.oauth.config;
 
-import java.util.Arrays;
-
+import br.com.fatec.oauth.config.token.CustomTokenEnhancer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,7 +14,7 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
-import br.com.fatec.oauth.config.token.CustomTokenEnhancer;
+import java.util.Arrays;
 
 @Configuration
 @EnableAuthorizationServer
@@ -37,7 +36,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .secret(encoder.encode("myappsecret123"))
                 .scopes("read", "write")
                 .authorizedGrantTypes("password", "refresh_token")
-                .accessTokenValiditySeconds(20)
+                .accessTokenValiditySeconds(300)
                 .refreshTokenValiditySeconds(3600 * 24);
     }
 

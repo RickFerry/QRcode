@@ -1,6 +1,6 @@
 package br.com.fatec.oauth.feignclients;
 
-import br.com.fatec.oauth.model.Usuario;
+import br.com.fatec.oauth.model.User;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,5 +13,5 @@ import java.util.Optional;
 public interface UserFeignClient {
 
     @GetMapping("/search")
-    Optional<Usuario> findByEmail(@RequestParam String email);
+    Optional<User> findByEmail(@RequestParam String email);
 }

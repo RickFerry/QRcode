@@ -1,7 +1,7 @@
 package br.com.fatec.user.service;
 
 import br.com.fatec.user.model.User;
-import br.com.fatec.user.model.dto.UsuarioDto;
+import br.com.fatec.user.model.dto.UserDto;
 import br.com.fatec.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ class UserServiceTest {
     private UserRepository userRepository;
 
     private User usuario;
-    private UsuarioDto dto;
+    private UserDto dto;
 
     @BeforeEach
     void setUp() {
@@ -38,8 +38,8 @@ class UserServiceTest {
     @Test
     void whenFindByIdThenReturnUser() {
         when(userRepository.findById(any())).thenReturn(Optional.of(usuario));
-        UsuarioDto resp = userService.findById(any());
-        assertEquals(UsuarioDto.class, resp.getClass());
+        UserDto resp = userService.findById(any());
+        assertEquals(UserDto.class, resp.getClass());
     }
 
     @Test
@@ -55,14 +55,14 @@ class UserServiceTest {
     @Test
     void whenFindAllThenReturnListOfUsers() {
         when(userRepository.findAll()).thenReturn(List.of(usuario));
-        List<UsuarioDto> resp = userService.findAll();
-        assertEquals(UsuarioDto.class, resp.get(0).getClass());
+        List<UserDto> resp = userService.findAll();
+        assertEquals(UserDto.class, resp.get(0).getClass());
     }
 
     @Test
     void whenFindByEmailThenReturnUser() {
         when(userRepository.findByEmail(any())).thenReturn(Optional.of(usuario));
-        UsuarioDto resp = userService.findByEmail(any());
+        User resp = userService.findByEmail(any());
         assertEquals(usuario.getEmail(), resp.getEmail());
     }
 
@@ -79,7 +79,7 @@ class UserServiceTest {
     @Test
     void whenCreateThenReturnUserCreated() {
         when(userRepository.save(any())).thenReturn(usuario);
-        UsuarioDto resp = userService.create(dto);
+        UserDto resp = userService.create(dto);
         assertEquals(usuario.getId(), resp.getId());
     }
 
@@ -92,7 +92,7 @@ class UserServiceTest {
                 .roles(new HashSet<>())
                 .build();
 
-        dto = UsuarioDto.builder()
+        dto = UserDto.builder()
                 .id(1L)
                 .name("Fulano")
                 .email("fulano@fulano.com")
