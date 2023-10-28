@@ -47,9 +47,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests(requests -> requests
-//                        .antMatchers("/ms-oauth/oauth/token").permitAll()
-//                        .anyRequest().authenticated())
-                        .anyRequest().permitAll())
+                        .antMatchers("/ms-oauth/oauth/token").permitAll()
+                        .anyRequest().authenticated())
+                        //.anyRequest().permitAll())
                 .sessionManagement(management -> management
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(AbstractHttpConfigurer::disable);

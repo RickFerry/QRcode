@@ -26,7 +26,7 @@ public class User {
     @Setter @NotNull
     String name;
 
-    @Setter
+    @Setter @NotNull
     String email;
 
     @Setter @NotNull

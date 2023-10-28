@@ -14,6 +14,5 @@ public class Role {
 
     @Id
     String id;
-
     String roleName;
 }
