@@ -1,6 +1,7 @@
 package br.com.fatec.user.controller;
 
-import br.com.fatec.user.model.dto.UsuarioDto;
+import br.com.fatec.user.model.User;
+import br.com.fatec.user.model.dto.UserDto;
 import br.com.fatec.user.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,26 +22,27 @@ public class UserController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN') and #oauth2.hasScope('read')")
-    public ResponseEntity<UsuarioDto> findById(@PathVariable String id) {
+    public ResponseEntity<UserDto> findById(@PathVariable String id) {
         return ResponseEntity.ok(service.findById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<UsuarioDto>> findAll() {
+    public ResponseEntity<List<UserDto>> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
 
     @GetMapping("/search")
-    public ResponseEntity<UsuarioDto> findByEmail(@RequestParam String email) {
+    public ResponseEntity<User> findByEmail(@RequestParam String email) {
         return ResponseEntity.ok(service.findByEmail(email));
     }
 
     @PostMapping
-    public ResponseEntity<UsuarioDto> create(@RequestBody UsuarioDto dto, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<UserDto> create(@RequestBody UserDto dto, UriComponentsBuilder uriComponentsBuilder) {
         try {
+            UserDto resp = service.create(dto);
             return ResponseEntity
-                    .created(uriComponentsBuilder.path("/users/{id}").buildAndExpand(service.create(dto).getId())
-                            .toUri()).body(service.create(dto));
+                    .created(uriComponentsBuilder.path("/users/{id}").buildAndExpand(resp.getId())
+                            .toUri()).body(resp);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }

@@ -1,6 +1,6 @@
 package br.com.fatec.oauth.controller;
 
-import br.com.fatec.oauth.model.Usuario;
+import br.com.fatec.oauth.model.User;
 import br.com.fatec.oauth.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +19,9 @@ public class UserController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<Usuario> findByEmail(@RequestParam String email) {
+    public ResponseEntity<User> findByEmail(@RequestParam String email) {
         try {
-            Usuario user = service.findByEmail(email);
+            User user = service.findByEmail(email);
             return ResponseEntity.ok(user);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();

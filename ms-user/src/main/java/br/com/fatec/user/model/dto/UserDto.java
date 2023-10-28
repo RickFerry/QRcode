@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UsuarioDto {
+public class UserDto {
     String id;
     String name;
     String email;
@@ -23,8 +23,8 @@ public class UsuarioDto {
 
     Set<Role> roles = new HashSet<>();
 
-    public static UsuarioDto toDto(User usuario) {
-        UsuarioDto user = UsuarioDto.builder()
+    public static UserDto toDto(User usuario) {
+        UserDto user = UserDto.builder()
                 .id(usuario.getId())
                 .name(usuario.getName())
                 .email(usuario.getEmail())

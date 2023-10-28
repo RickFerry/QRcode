@@ -1,6 +1,6 @@
 package br.com.fatec.user.model;
 
-import br.com.fatec.user.model.dto.UsuarioDto;
+import br.com.fatec.user.model.dto.UserDto;
 import br.com.fatec.user.repository.RoleRepository;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -35,7 +35,7 @@ public class User {
     @DBRef
     Set<Role> roles = new HashSet<>();
 
-    public static User toEntity(UsuarioDto dto, RoleRepository repository, BCryptPasswordEncoder encoder) {
+    public static User toEntity(UserDto dto, RoleRepository repository, BCryptPasswordEncoder encoder) {
         User user = User.builder()
                 .id(dto.getId())
                 .name(dto.getName())
