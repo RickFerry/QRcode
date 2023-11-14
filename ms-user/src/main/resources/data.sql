@@ -1,5 +1,5 @@
 INSERT INTO users (name, email, password) VALUES ('Amazon', 'amazon@amazon.com', '$2a$10$NYFZ/8WaQ3Qb6FCs.00jce4nxX9w7AkgWVsQCG6oUwTAcZqP9Flqu');
-INSERT INTO users (name, email, password) VALUES ('Apple', 'apple@apple.com', '$2a$10$NYFZ/8WaQ3Qb6FCs.00jce4nxX9w7AkgWVsQCG6oUwTAcZqP9Flqu');
+INSERT INTO users (name, email, password) VALUES ('Apple', 'apple@apple.com', '$2a$12$/hv390V3Ajz6kwYmOScjKeqj2JXoycejFNzh/OBvs1b12PdJe7Ku6');
 
 INSERT INTO roles (role_name) VALUES ('ROLE_OPERATOR');
 INSERT INTO roles (role_name) VALUES ('ROLE_ADMIN');
