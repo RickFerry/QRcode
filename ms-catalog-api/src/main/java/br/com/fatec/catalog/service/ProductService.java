@@ -27,7 +27,7 @@ public class ProductService {
         return productMapper.toDto(savedProduct);
     }
 
-    public List<ProductDto> getProductsByUserId(Long userId) {
+    public List<ProductDto> getProductsByUserId(UUID userId) {
         return productRepository.getProductsByUserId(userId)
                 .stream()
                 .map(productMapper::toDto)

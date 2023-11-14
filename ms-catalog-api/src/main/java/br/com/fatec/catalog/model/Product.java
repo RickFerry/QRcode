@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Data
 @NoArgsConstructor
@@ -23,5 +24,5 @@ public class Product extends UUIDModel implements Serializable {
     private String description;
     private ProductCategory category;
     private ProductInventoryStatus inventoryStatus;
-    private Long userId;
+    private UUID userId;
 }

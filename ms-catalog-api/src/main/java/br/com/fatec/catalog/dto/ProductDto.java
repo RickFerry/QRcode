@@ -30,5 +30,5 @@ public class ProductDto {
     private ProductCategory category;
     private ProductInventoryStatus inventoryStatus;
     @NotNull
-    private Long userId;
+    private UUID userId;
 }

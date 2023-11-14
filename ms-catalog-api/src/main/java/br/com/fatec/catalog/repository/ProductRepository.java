@@ -10,5 +10,5 @@ import java.util.UUID;
 @Repository
 public interface ProductRepository extends MongoRepository<Product, UUID> {
 
-    List<Product> getProductsByUserId(Long userId);
+    List<Product> getProductsByUserId(UUID userId);
 }
