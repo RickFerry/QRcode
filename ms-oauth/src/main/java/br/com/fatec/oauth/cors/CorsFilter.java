@@ -18,25 +18,21 @@ import org.springframework.stereotype.Component;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsFilter implements Filter {
 
-    private String origemPermitida = "http://...";
+    private String origemPermitida = "http://localhost:4200";
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
 
         resp.setHeader("Access-Control-Allow-Origin", origemPermitida);
         resp.setHeader("Access-Control-Allow-Credentials", "true");
-
+        resp.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS");
+        resp.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept");
         if ("OPTIONS".equals(req.getMethod()) && origemPermitida.equals(req.getHeader("Origin"))) {
-            resp.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT, OPTIONS");
-            resp.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept");
-            resp.setHeader("Access-Control-Max-Age", "3600");
-
             resp.setStatus(HttpServletResponse.SC_OK);
         } else {
-            chain.doFilter(request, response);
+            chain.doFilter(req, resp);
         }
     }
 }
