@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Builder @Getter
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 public class User implements UserDetails {
 
     @Setter
-    private Long id;
+    private UUID id;
     @Setter
     private String name;
     @Setter

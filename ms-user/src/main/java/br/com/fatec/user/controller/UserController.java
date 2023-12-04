@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
@@ -22,7 +24,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN') and #oauth2.hasScope('read')")
-    public ResponseEntity<UserDto> findById(@PathVariable Long id) {
+    public ResponseEntity<UserDto> findById(@PathVariable UUID id) {
         return ResponseEntity.ok(service.findById(id));
     }
 
@@ -43,7 +45,7 @@ public class UserController {
             return ResponseEntity
                     .created(uriComponentsBuilder.path("/users/{id}").buildAndExpand(resp.getId())
                             .toUri()).body(resp);
-        } catch (Exception e) {
+        } catch (NoSuchElementException e) {
             return ResponseEntity.badRequest().build();
         }
     }

@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -84,8 +85,9 @@ class UserServiceTest {
     }
 
     private void StartObjects() {
+        var id = UUID.randomUUID();
         usuario = User.builder()
-                .id(1L)
+                .id(id)
                 .name("Fulano")
                 .email("fulano@fulano.com")
                 .password("123")
@@ -93,7 +95,7 @@ class UserServiceTest {
                 .build();
 
         dto = UserDto.builder()
-                .id(1L)
+                .id(id)
                 .name("Fulano")
                 .email("fulano@fulano.com")
                 .password("123")

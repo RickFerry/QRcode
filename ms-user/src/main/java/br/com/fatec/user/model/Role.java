@@ -2,19 +2,17 @@ package br.com.fatec.user.model;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
-
-@Entity
+@Document
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "roles")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Role {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     String roleName;

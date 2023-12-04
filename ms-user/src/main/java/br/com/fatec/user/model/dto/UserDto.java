@@ -8,6 +8,7 @@ import lombok.experimental.FieldDefaults;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Builder @Getter
 @NoArgsConstructor
@@ -15,7 +16,7 @@ import java.util.Set;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserDto {
 
-    Long id;
+    UUID id;
     String name;
     String email;
 

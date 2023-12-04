@@ -9,10 +9,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static br.com.fatec.user.model.User.toEntity;
 import static br.com.fatec.user.model.dto.UserDto.toDto;
+import static java.util.Objects.isNull;
 
 @Service
 public class UserService {
@@ -27,9 +30,9 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public UserDto findById(Long id) {
+    public UserDto findById(UUID id) {
         return toDto(
-                repository.findById(id).orElseThrow(() -> new RuntimeException("User not found"))
+                repository.findById(id).orElseThrow(() -> new NoSuchElementException("User not found"))
         );
     }
 
@@ -40,13 +43,15 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public User findByEmail(String email) {
-        return repository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+        return repository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("User not found"));
     }
 
     @Transactional
     public UserDto create(UserDto dto) {
-        return toDto(repository.save(
-                toEntity(dto, roleRepository, encoder)
-        ));
+        User entity = toEntity(dto, roleRepository, encoder);
+        if (isNull(entity.getId())) {
+            entity.setId(UUID.randomUUID());
+        }
+        return toDto(repository.save(entity));
     }
 }
