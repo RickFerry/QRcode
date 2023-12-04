@@ -27,7 +27,7 @@ public class QRCodeService {
 
     @Transactional
     public QRCodeDto save(UUID userId) throws IOException, WriterException {
-        final String dataText = "http://localhost:8765/ms-catalog-api/api/v1/products/".concat(userId.toString());
+        final String dataText = "http://localhost:8765/ms-catalog-api/products/".concat(userId.toString());
         final int width = 250;
         final int height = 250;
         QRCode qrCode = new QRCode();

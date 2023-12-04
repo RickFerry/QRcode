@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/v1/qrcodes")
+@RequestMapping("/qrcodes")
 public class QRCodeController {
 
     private final QRCodeService qrCodeService;
