@@ -3,8 +3,10 @@ package br.com.fatec.qrcode.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -12,10 +14,11 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "qrcodes")
-public class QRCode extends UUIDModel implements Serializable {
+public class QRCode {
 
-    private static final long serialVersionUID = 1L;
+    @Id
+    protected UUID id;
 
+    @NotNull
     private String data;
-    private UUID userId;
 }

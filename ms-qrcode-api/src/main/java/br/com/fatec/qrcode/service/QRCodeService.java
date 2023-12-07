@@ -32,7 +32,7 @@ public class QRCodeService {
         final int height = 250;
         QRCode qrCode = new QRCode();
 
-        qrCode.setUserId(userId);
+        qrCode.setId(userId);
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = qrCodeWriter.encode(dataText, BarcodeFormat.QR_CODE, width, height);
         ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
