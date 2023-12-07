@@ -18,7 +18,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecurityExpressionHandler;
 
-import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.*;
 
 @Configuration
 @EnableWebSecurity
@@ -52,6 +52,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .authorizeRequests(requests -> requests
                         .antMatchers("/ms-oauth/oauth/token").permitAll()
                         .antMatchers(POST, "/ms-user/users").permitAll()
+                        .antMatchers(GET, "/ms-user/users").permitAll()
+                        .antMatchers(OPTIONS).permitAll()
                         .anyRequest().authenticated())
                         //.anyRequest().permitAll())
                 .sessionManagement(management -> management

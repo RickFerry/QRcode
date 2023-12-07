@@ -13,13 +13,14 @@ import java.util.UUID;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/qrcodes")
+@CrossOrigin("http://localhost:4200")
 public class QRCodeController {
 
     private final QRCodeService qrCodeService;
 
-    @PostMapping("/{userId}")
+    @GetMapping("/{userId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public QRCodeDto save(@PathVariable UUID userId) throws IOException, WriterException {
-        return qrCodeService.save(userId);
+    public QRCodeDto findWithSave(@PathVariable UUID userId) throws IOException, WriterException {
+        return qrCodeService.findWithSave(userId);
     }
 }

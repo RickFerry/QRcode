@@ -4,7 +4,6 @@ import br.com.fatec.user.model.User;
 import br.com.fatec.user.model.dto.UserDto;
 import br.com.fatec.user.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -23,7 +22,6 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ROLE_ADMIN') and #oauth2.hasScope('read')")
     public ResponseEntity<UserDto> findById(@PathVariable UUID id) {
         return ResponseEntity.ok(service.findById(id));
     }

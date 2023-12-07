@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Base64;
+import java.util.Optional;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -26,8 +27,12 @@ public class QRCodeService {
     private final QRCodeMapper qrCodeMapper = QRCodeMapper.INSTANCE;
 
     @Transactional
-    public QRCodeDto save(UUID userId) throws IOException, WriterException {
-        final String dataText = "http://localhost:8765/ms-catalog-api/products/".concat(userId.toString());
+    public QRCodeDto findWithSave(UUID userId) throws IOException, WriterException {
+        Optional<QRCode> byId = qrCodeRepository.findById(userId);
+        if(byId.isPresent()){
+            return qrCodeMapper.toDto(byId.get());
+        }
+        final String dataText = "http://localhost:4200/#/catalogo/".concat(userId.toString());
         final int width = 250;
         final int height = 250;
         QRCode qrCode = new QRCode();

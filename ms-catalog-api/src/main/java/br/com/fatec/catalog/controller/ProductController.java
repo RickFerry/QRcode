@@ -14,11 +14,12 @@ import java.util.UUID;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/products")
+@CrossOrigin("http://localhost:4200")
 public class ProductController {
 
     private final ProductService productService;
 
-    @PostMapping()
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ProductDto save(@RequestBody @Valid ProductDto productDto) {
         return productService.save(productDto);
